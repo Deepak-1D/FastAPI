@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
+import request
 
 app = FastAPI()
 
@@ -17,9 +18,11 @@ async def demo_get():
     return {"message": "This is /path endpoint, use a post request to transform the text to uppercase"}
 
 
-@app.post("/path")
-async def demo_post(inp: Msg):
-    return {"message": inp.msg.upper()}
+@app.post("/payment/webhook")
+async def demo_post(inp: Request):
+    req = await inp.json()
+    request.post("https://874d-103-130-91-189.in.ngrok.io/webhook", json=req)
+    
 
 
 @app.get("/path/{path_id}")
