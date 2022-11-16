@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
-import request
+import requests
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ async def demo_get():
 @app.post("/payment/webhook")
 async def demo_post(inp: Request):
     req = await inp.json()
-    request.post("https://874d-103-130-91-189.in.ngrok.io/webhook", json=req)
+    requests.post("https://874d-103-130-91-189.in.ngrok.io/webhook", json=req)
     
 
 
